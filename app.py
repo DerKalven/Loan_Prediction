@@ -99,7 +99,7 @@ with st.expander("📊 Información del Dataset y Modelo", expanded=False):
         st.markdown("**Descripción:** Dataset para predicción de aprobación de préstamos")
         st.markdown("**Variables principales:**")
         st.markdown("- Estado Civil")
-        st.markdown("- Ingresos Anuales")
+        st.markdown("- Ingresos Mensuales")
         st.markdown("- Nivel Educativo")
         st.markdown("- Monto del Préstamo")
         st.markdown("- Historial Crediticio")
