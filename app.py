@@ -4,7 +4,20 @@ from sklearn.preprocessing import StandardScaler
 import joblib
 import time
 
-st.set_page_config(layout="wide")
+st.set_page_config(
+    page_title="Loan Status Predictor - Data Science Portfolio",
+    page_icon="💳",
+    layout="wide"
+)
+
+# Header con información del proyecto
+st.markdown("""
+<div style='text-align: center; padding: 20px; background-color: #f0f2f6; border-radius: 10px; margin-bottom: 20px;'>
+    <h1 style='color: #1f77b4; margin-bottom: 10px;'>💳 Loan Status Prediction App</h1>
+    <p style='font-size: 18px; color: #2c3e50; font-weight: 500;'>Predictor de Estado de Préstamos usando Machine Learning</p>
+    <p style='font-size: 14px; color: #e74c3c; font-weight: bold;'>⚠️ Modelo creado con fines educativos</p>
+</div>
+""", unsafe_allow_html=True)
 
 
 # Cargar modelos con mejor manejo de errores
@@ -75,8 +88,31 @@ scaler, model, scaler_fitted = load_models()
 if scaler is None or model is None:
     st.stop()
 
-st.title("Loan Status Prediction App")
-st.caption("This app helps you to predict a Loan Status")
+# Información del dataset y modelo
+with st.expander("📊 Información del Dataset y Modelo", expanded=False):
+    col1, col2 = st.columns(2)
+
+    with col1:
+        st.markdown("### 📈 Dataset")
+        st.markdown(
+            "**Fuente:** [Kaggle - Loan Status Prediction](https://www.kaggle.com/datasets/bhavikjikadara/loan-status-prediction)")
+        st.markdown("**Descripción:** Dataset para predicción de aprobación de préstamos")
+        st.markdown("**Variables principales:**")
+        st.markdown("- Estado Civil")
+        st.markdown("- Ingresos Anuales")
+        st.markdown("- Nivel Educativo")
+        st.markdown("- Monto del Préstamo")
+        st.markdown("- Historial Crediticio")
+
+    with col2:
+        st.markdown("### 🤖 Modelo de Machine Learning")
+        st.markdown("**Algoritmo:** Support Vector Classifier (SVC)")
+        st.markdown("**Parámetros:**")
+        st.markdown("- `C = 0.05` (Parámetro de regularización)")
+        st.markdown("- `kernel = 'linear'` (Kernel lineal)")
+        st.markdown("**Preprocesamiento:** StandardScaler")
+        st.markdown("**Finalidad:** Proyecto educativo de Data Science")
+
 st.divider()
 
 # Inputs del usuario
@@ -134,16 +170,20 @@ if predictbutton:
         # ANIMACIÓN COMBINADA (Texto + Emojis)
         animated_result(prediction[0] == 1)
 
-        # Mostrar resultado final
-        col1, col2 = st.columns(2)
+        # Mostrar resultado final con información adicional
+        st.markdown("### 📊 Resultados de la Predicción")
+
+        col1, col2, col3 = st.columns(3)
 
         with col1:
             if prediction[0] == 1:
                 st.success("🎉 ¡APROBADO!")
-                st.markdown("### 🎊 ¡Felicitaciones! Tu préstamo ha sido aprobado.")
+                st.markdown("#### 🎊 ¡Felicitaciones!")
+                st.markdown("Tu préstamo ha sido **aprobado** según el modelo SVC.")
             else:
                 st.error("❌ NO APROBADO")
-                st.markdown("### 💡 No te desanimes, puedes mejorar tu perfil crediticio.")
+                st.markdown("#### 💡 Resultado del Análisis")
+                st.markdown("El modelo SVC **no recomienda** aprobar este préstamo.")
 
         with col2:
             if probability is not None:
@@ -153,13 +193,47 @@ if predictbutton:
                 # Barra de progreso visual
                 st.progress(prob_approved / 100)
 
-                # Recomendaciones basadas en probabilidad
+                # Interpretación de probabilidad
                 if prob_approved < 30:
-                    st.warning("🔻 Probabilidad muy baja. Considera mejorar tu historial crediticio.")
+                    st.markdown("🔻 **Probabilidad Baja**")
                 elif prob_approved < 60:
-                    st.info("🔶 Probabilidad moderada. Podrías mejorar algunos aspectos.")
+                    st.markdown("🔶 **Probabilidad Moderada**")
                 else:
-                    st.success("🔺 ¡Excelente probabilidad!")
+                    st.markdown("🔺 **Probabilidad Alta**")
+
+        with col3:
+            st.markdown("#### 📋 Modelo Utilizado")
+            st.markdown("**SVC (Support Vector Classifier)**")
+            st.markdown("- C = 0.05")
+            st.markdown("- Kernel = Linear")
+            st.markdown("- Preprocesamiento: StandardScaler")
+
+        # Recomendaciones basadas en resultado
+        st.markdown("### 💡 Interpretación y Recomendaciones")
+
+        if prediction[0] == 1:
+            st.info("""
+            **✅ Perfil Aprobado:** El modelo identifica que este perfil cumple con los criterios 
+            típicos para la aprobación de préstamos según los patrones encontrados en el dataset de entrenamiento.
+            """)
+        else:
+            st.warning("""
+            **❌ Perfil No Aprobado:** El modelo sugiere que este perfil presenta características 
+            que históricamente se asocian con mayor riesgo de impago según el dataset de entrenamiento.
+
+            **Posibles mejoras para futuras solicitudes:**
+            - Mejorar el historial crediticio
+            - Aumentar los ingresos
+            - Considerar un monto de préstamo menor
+            """)
+
+        # Disclaimer importante
+        st.markdown("### ⚠️ Importante")
+        st.warning("""
+        **Este es un modelo educativo** basado en datos de Kaggle y no debe utilizarse para 
+        decisiones reales de préstamos. Los algoritmos de ML pueden tener sesgos y las decisiones 
+        financieras reales requieren análisis más complejos y regulados.
+        """)
 
         # Mostrar valores de entrada para debug
         with st.expander("🔍 Valores de entrada (debug)"):
@@ -179,16 +253,46 @@ if predictbutton:
 
 # Información adicional
 with st.sidebar:
-    st.header("ℹ️ Información del Modelo")
-    st.write("**Variables utilizadas:**")
-    st.write("- Estado Civil")
-    st.write("- Ingresos Anuales")
-    st.write("- Educación")
-    st.write("- Monto del Préstamo")
-    st.write("- Historial Crediticio")
+    st.markdown("### 👨‍💻 Información del Proyecto")
+
+    st.markdown("#### 📊 Dataset")
+    st.markdown("**Fuente:** Kaggle")
+    st.markdown("**Nombre:** Loan Status Prediction")
+    st.markdown("🔗 [Ver Dataset](https://www.kaggle.com/datasets/bhavikjikadara/loan-status-prediction)")
+
+    st.markdown("#### 🤖 Modelo")
+    st.markdown("**Algoritmo:** SVC")
+    st.markdown("**Parámetros:**")
+    st.markdown("- C = 0.05")
+    st.markdown("- kernel = 'linear'")
+
+    st.markdown("#### 🎯 Variables del Modelo")
+    st.markdown("1. Estado Civil")
+    st.markdown("2. Ingresos Anuales")
+    st.markdown("3. Educación")
+    st.markdown("4. Monto del Préstamo")
+    st.markdown("5. Historial Crediticio")
 
     if scaler_fitted:
         st.success("Scaler: ✅ Entrenado")
     else:
         st.warning("Scaler: ⚠️ No entrenado")
 
+    st.divider()
+
+    st.markdown("#### 🎬 Animación")
+    st.markdown("**Secuencia animada** que combina emojis con mensajes de progreso")
+    st.markdown("- ✅ **Aprobado:** 🔍 → ⚖️ → ✅ → 🎉 → 🥳")
+    st.markdown("- ❌ **Rechazado:** 🔍 → ⚖️ → 📊 → ❌ → 💪")
+
+    st.divider()
+
+    st.markdown("#### ⚠️ Aviso Legal")
+    st.markdown(
+        "**Este modelo fue creado con fines educativos.** No debe utilizarse para decisiones reales de préstamos.")
+
+    # Información de contacto (opcional - puedes personalizarlo)
+    st.markdown("#### 📫 Portfolio")
+    st.markdown("🐙 [GitHub](https://github.com)")
+    st.markdown("💼 [LinkedIn](https://linkedin.com)")
+    st.markdown("📧 email@ejemplo.com")
