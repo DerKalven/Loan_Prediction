@@ -129,11 +129,7 @@ with col2:
 with col3:
     credit_history = st.selectbox("Credit History?", ["No", "Yes"])
 
-# Selector de tipo de animación (removido)
-# animation_type = st.radio(
-#     "Elige el tipo de animación:",
-#     ["Clásica (Nieve/Globos)", "Emojis Animados", "Texto Animado", "Sin Animación"]
-# )
+
 
 predictbutton = st.button("Predict the Approval!", type="primary")
 
@@ -268,7 +264,7 @@ with st.sidebar:
 
     st.markdown("#### 🎯 Variables del Modelo")
     st.markdown("1. Estado Civil")
-    st.markdown("2. Ingresos Anuales")
+    st.markdown("2. Ingresos Mensuales")
     st.markdown("3. Educación")
     st.markdown("4. Monto del Préstamo")
     st.markdown("5. Historial Crediticio")
@@ -291,8 +287,7 @@ with st.sidebar:
     st.markdown(
         "**Este modelo fue creado con fines educativos.** No debe utilizarse para decisiones reales de préstamos.")
 
-    # Información de contacto (opcional - puedes personalizarlo)
     st.markdown("#### 📫 Portfolio")
-    st.markdown("🐙 [GitHub](https://github.com)")
-    st.markdown("💼 [LinkedIn](https://linkedin.com)")
-    st.markdown("📧 email@ejemplo.com")
+    st.markdown("🐙 [GitHub](https://github.com/DerKalven)")
+    st.markdown("💼 [LinkedIn](https://www.linkedin.com/in/fernando-castillo-reina-6a63999a)")
+    st.markdown("📧 jfcastillor@unal.edu.co")
