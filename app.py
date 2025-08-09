@@ -123,8 +123,8 @@ with col1:
     education = st.selectbox("Client is graduated?", ["No", "Yes"])
 
 with col2:
-    income = st.number_input("Annual Income", min_value=0, value=10000, step=500)
-    loan_amount = st.number_input("Loan Amount", min_value=0, value=10000, step=500)
+    income = st.number_input("Monthly Income", min_value=0, value=10000, step=500)
+    loan_amount = st.number_input("Loan Amount in thousands", min_value=0, value=10000, step=500)
 
 with col3:
     credit_history = st.selectbox("Credit History?", ["No", "Yes"])
