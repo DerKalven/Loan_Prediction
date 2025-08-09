@@ -24,7 +24,7 @@ st.markdown("""
 @st.cache_resource
 def load_models():
     try:
-        scaler = joblib.load("Scaler.pkl")
+        scaler = joblib.load("scaler.pkl")
         model = joblib.load("model.pkl")
 
         # Verificar si el scaler está entrenado
