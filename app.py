@@ -13,7 +13,7 @@ st.set_page_config(
 # Header con información del proyecto
 st.markdown("""
 <div style='text-align: center; padding: 20px; background-color: #f0f2f6; border-radius: 10px; margin-bottom: 20px;'>
-    <h1 style='color: #1f77b4; margin-bottom: 10px;'>💳 Loan Status Prediction App</h1>
+    <h1 style='color: #1f77b4; margin-bottom: 10px;'>💳 Loan Status Predictor </h1>
     <p style='font-size: 18px; color: #2c3e50; font-weight: 500;'>Predictor de Estado de Préstamos usando Machine Learning</p>
     <p style='font-size: 14px; color: #e74c3c; font-weight: bold;'>⚠️ Modelo creado con fines educativos</p>
 </div>
